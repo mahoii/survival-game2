@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1latbwmmd4ej"]
+
+[ext_resource type="Script" path="res://apple.gd" id="1_mm7eh"]
+[ext_resource type="Script" path="res://Area3D.gd" id="2_1uh35"]
+[ext_resource type="PackedScene" uid="uid://deqe5458s6d2d" path="res://apple.glb" id="3_y83ky"]
+
+[node name="apple" type="RigidBody3D" groups=["apple"]]
+mass = 0.2
+gravity_scale = 0.0
+script = ExtResource("1_mm7eh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("2_1uh35")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+
+[node name="apple" parent="." instance=ExtResource("3_y83ky")]
+transform = Transform3D(0.881962, -0.0584067, 0.467687, 0.0667158, 0.997772, -0.00120646, -0.466575, 0.0322662, 0.883893, -0.222929, -2.99705, -4.02648)

@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://dyd7x0u4r23d2"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_eyu5d"]
+[ext_resource type="Script" path="res://SpringArm3D.gd" id="2_4ihbg"]
+[ext_resource type="Script" path="res://PlayerNeeds.gd" id="3_77l81"]
+[ext_resource type="Script" path="res://Health.gd" id="4_2fhue"]
+[ext_resource type="PackedScene" uid="uid://bnlxegdc8wnqr" path="res://need_bar.tscn" id="5_df8wf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qy78s"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_n66ri"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.11008, 0)
+script = ExtResource("1_eyu5d")
+SPEED = 5.0
+
+[node name="getFood" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.11008, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_qy78s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_n66ri")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Node3D"]
+spring_length = 3.0
+script = ExtResource("2_4ihbg")
+
+[node name="Camera3D" type="Camera3D" parent="Node3D/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.287388, 4.72371, 12.6017)
+
+[node name="PlayerNeeds" type="Node3D" parent="."]
+script = ExtResource("3_77l81")
+
+[node name="Health" type="Node" parent="PlayerNeeds" node_paths=PackedStringArray("ui_bar")]
+script = ExtResource("4_2fhue")
+max_value = 100.0
+start_value = 100.0
+ui_bar = NodePath("NeedBar")
+
+[node name="NeedBar" parent="PlayerNeeds/Health" instance=ExtResource("5_df8wf")]
+need_name = "Health"
+
+[node name="Hunger" type="Node" parent="PlayerNeeds" node_paths=PackedStringArray("ui_bar")]
+script = ExtResource("4_2fhue")
+ui_bar = NodePath("NeedBar")
+
+[node name="NeedBar" parent="PlayerNeeds/Hunger" instance=ExtResource("5_df8wf")]
+need_name = "Hunger"
+
+[node name="Thirst" type="Node" parent="PlayerNeeds" node_paths=PackedStringArray("ui_bar")]
+script = ExtResource("4_2fhue")
+ui_bar = NodePath("NeedBar")
+
+[node name="NeedBar" parent="PlayerNeeds/Thirst" instance=ExtResource("5_df8wf")]
+need_name = "Thirst"
+
+[connection signal="area_entered" from="getFood" to="." method="_on_get_food_area_entered"]

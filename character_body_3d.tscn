@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cla13ji3yrc6v"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[node name="PlayerDetection" type="Node3D" parent="."]
